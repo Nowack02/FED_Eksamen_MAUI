@@ -1,6 +1,8 @@
 ﻿using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
 using ExamAppMAUI.Data;
+using ExamAppMAUI.ViewModels;
+using ExamAppMAUI.Views;
 using System.IO;
 using Microsoft.Maui.Storage;
 
@@ -27,6 +29,13 @@ public static class MauiProgram
 
         builder.Services.AddDbContext<ApplicationDbContext>(options =>
             options.UseSqlite($"Filename={dbPath}"));
+
+		builder.Services.AddTransient<CreateExamViewModel>();
+		builder.Services.AddTransient<CreateExamPage>();
+
+		builder.Services.AddTransient<StartExamPage>();
+		builder.Services.AddTransient<AddStudentsPage>();
+		builder.Services.AddTransient<HistoryPage>();
 
 		return builder.Build();
 	}

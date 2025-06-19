@@ -1,15 +1,41 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<Shell
-    x:Class="ExamAppMAUI.AppShell"
-    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:ExamAppMAUI"
-    Shell.FlyoutBehavior="Flyout"
-    Title="ExamAppMAUI">
+<Shell xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:local="clr-namespace:ExamAppMAUI.Views"
+       x:Class="ExamAppMAUI.AppShell"
+       Shell.FlyoutBehavior="Disabled"> <Shell.Resources>
+        <ResourceDictionary>
+            <Style TargetType="ShellContent" ApplyToDerivedTypes="True">
+                <Setter Property="Shell.NavBarIsVisible" Value="False" />
+            </Style>
+        </ResourceDictionary>
+    </Shell.Resources>
 
-    <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+    <TabBar>
+        <Tab Title="Opret Eksamen"
+             Icon="tab_exam.png"> <ShellContent
+                ContentTemplate="{DataTemplate local:CreateExamPage}"
+                Route="CreateExamPage" />
+        </Tab>
+
+        <Tab Title="Tilføj Studerende"
+             Icon="tab_students.png"> <ShellContent
+                ContentTemplate="{DataTemplate local:AddStudentsPage}"
+                Route="AddStudentsPage" />
+        </Tab>
+
+        <Tab Title="Start Eksamen"
+             Icon="tab_start.png"> <ShellContent
+                ContentTemplate="{DataTemplate local:StartExamPage}"
+                Route="StartExamPage" />
+        </Tab>
+
+        <Tab Title="Historik"
+             Icon="tab_history.png"> <ShellContent
+                ContentTemplate="{DataTemplate local:HistoryPage}"
+                Route="HistoryPage" />
+        </Tab>
+
+    </TabBar>
 
 </Shell>

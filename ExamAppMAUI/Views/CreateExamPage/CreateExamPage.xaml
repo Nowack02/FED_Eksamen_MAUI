@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:ExamAppMAUI.ViewModels"
+             x:Class="ExamAppMAUI.Views.CreateExamPage"
+             Title="Opret Ny Eksamen">
+
+       <ScrollView>
+              <VerticalStackLayout Spacing="15"
+                             Padding="20"
+                             VerticalOptions="StartAndExpand">
+
+              <Label Text="Termin:"
+                     FontSize="Medium"
+                     FontAttributes="Bold" />
+              <Entry Text="{Binding Term}"
+                     Placeholder="F.eks. Forår 2025"
+                     ClearButtonVisibility="WhileEditing" />
+
+              <Label Text="Kursus:"
+                     FontSize="Medium"
+                     FontAttributes="Bold" />
+              <Entry Text="{Binding Course}"
+                     Placeholder="F.eks. Front-end udvikling"
+                     ClearButtonVisibility="WhileEditing" />
+
+              <Label Text="Dato:"
+                     FontSize="Medium"
+                     FontAttributes="Bold" />
+              <DatePicker Date="{Binding Date}"
+                            Format="dd-MM-yyyy" />
+              
+              <Label Text="Antal Spørgsmål:"
+                     FontSize="Medium"
+                     FontAttributes="Bold" />
+              <Entry Text="{Binding NumberOfQuestions}"
+                     Keyboard="Numeric"
+                     Placeholder="Indtast antal spørgsmål"
+                     ClearButtonVisibility="WhileEditing" />
+
+              <Label Text="Eksaminationstid pr. Studerende:"
+                     FontSize="Medium"
+                     FontAttributes="Bold" />
+              <Entry Text="{Binding ExaminationDuration}"
+                     Placeholder="Hele minutter"
+                     Keyboard="Numeric" />
+
+              <Label Text="Starttidspunkt for eksamen:"
+                     FontSize="Medium"
+                     FontAttributes="Bold" />
+              <TimePicker Time="{Binding StartTime}"
+                     Format="HH:mm"/>
+
+              <Label Text="{Binding ErrorMessage}"
+                     TextColor="Red"
+                     FontSize="Small"
+                     Margin="0,10,0,0" />
+
+              <Button Text="Opret Eksamen"
+                     Command="{Binding CreateExamCommand}"
+                     HorizontalOptions="Center"
+                     Margin="0,20,0,0" />
+
+              </VerticalStackLayout>
+       </ScrollView>
+</ContentPage>

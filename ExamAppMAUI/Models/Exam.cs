@@ -6,8 +6,8 @@ namespace ExamAppMAUI.Models
     public class Exam
     {
         public int Id { get; set; } // Primary Key
-        public string Term { get; set; }
-        public string Course { get; set; }
+        public required string Term { get; set; }
+        public required string Course { get; set; }
         public DateTime Date { get; set; }
         public int NumberOfQuestions { get; set; }
         public TimeSpan ExaminationDuration { get; set; }
