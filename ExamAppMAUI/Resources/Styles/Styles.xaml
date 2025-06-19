@@ -3,6 +3,33 @@
 <ResourceDictionary 
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    
+    <Style x:Key="InfoCard" TargetType="Border">
+        <Setter Property="Padding" Value="15" />
+        <Setter Property="Margin" Value="20,10" />
+        <Setter Property="Stroke" Value="LightGray" />
+        <Setter Property="StrokeThickness" Value="1" />
+        <Setter Property="StrokeShape">
+            <RoundRectangle CornerRadius="10"/>
+        </Setter>
+        <Setter Property="Shadow">
+            <Shadow Brush="Black"
+                    Offset="3,5"
+                    Radius="15"
+                    Opacity="0.1"/>
+        </Setter>
+    </Style>
+    
+    <Style x:Key="DefaultButton" TargetType="Button">
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="Padding" Value="14,8" />
+    </Style>
+
+    <Style x:Key="SuccessButton" TargetType="Button" BasedOn="{StaticResource DefaultButton}">
+        <Setter Property="BackgroundColor" Value="Green" />
+        <Setter Property="TextColor" Value="White" />
+        <Setter Property="FontAttributes" Value="Bold" />
+    </Style>
 
     <Style TargetType="ActivityIndicator">
         <Setter Property="Color" Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}" />

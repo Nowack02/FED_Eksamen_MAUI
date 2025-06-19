@@ -10,7 +10,7 @@
     <CollectionView ItemsSource="{Binding Exams}">
         <CollectionView.ItemTemplate>
             <DataTemplate x:DataType="models:Exam">
-                <Frame Padding="15" Margin="20,10" CornerRadius="10" BorderColor="LightGray">
+                <Border Style="{StaticResource InfoCard}">
                     <Grid RowDefinitions="Auto, Auto" RowSpacing="15">
                         
                         <VerticalStackLayout Grid.Row="0">
@@ -20,18 +20,18 @@
 
                         <HorizontalStackLayout Grid.Row="1" Spacing="10" HorizontalOptions="End">
                             <Button Text="Tilføj studerende"
+                                    Style="{StaticResource DefaultButton}"
                                     Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:ExamsViewModel}}, Path=GoToAddStudentsToExamCommand}"
                                     CommandParameter="{Binding .}"/>
 
                             <Button Text="Start eksamen"
-                                    BackgroundColor="Green"
-                                    TextColor="White"
+                                    Style="{StaticResource SuccessButton}"
                                     Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:ExamsViewModel}}, Path=GoToProcessExamCommand}"
                                     CommandParameter="{Binding .}"/>
                         </HorizontalStackLayout>
                         
                     </Grid>
-                </Frame>
+                </Border>
             </DataTemplate>
         </CollectionView.ItemTemplate>
     </CollectionView>

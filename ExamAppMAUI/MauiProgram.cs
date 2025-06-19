@@ -35,16 +35,17 @@ public static class MauiProgram
 		builder.Services.AddDbContext<ApplicationDbContext>(options =>
 			options.UseSqlite($"Filename={dbPath}"));
 
+		// ViewModels
 		builder.Services.AddTransient<CreateExamViewModel>();
-		builder.Services.AddTransient<ExamsViewModel>();
+		builder.Services.AddSingleton<ExamsViewModel>();
 		builder.Services.AddTransient<AddStudentsToExamViewModel>();
 		builder.Services.AddTransient<ProcessExamViewModel>();
 		builder.Services.AddTransient<HistoryViewModel>();
 		builder.Services.AddTransient<ExamDetailsViewModel>();
 		
-
+		// Views
 		builder.Services.AddTransient<CreateExamPage>();
-		builder.Services.AddTransient<ExamsPage>();
+		builder.Services.AddSingleton<ExamsPage>();
 		builder.Services.AddTransient<AddStudentsToExamPage>();
 		builder.Services.AddTransient<ProcessExamPage>();
 		builder.Services.AddTransient<HistoryPage>();
