@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:ExamAppMAUI.Models"
+             xmlns:viewmodels="clr-namespace:ExamAppMAUI.ViewModels"
+             x:Class="ExamAppMAUI.Views.ProcessExamPage"
+             x:DataType="viewmodels:ProcessExamViewModel"
+             Title="Eksamensafvikling">
+
+    <ScrollView>
+        <VerticalStackLayout Spacing="15" Padding="20">
+            <Frame IsVisible="{Binding IsStudentActive}" BorderColor="LightGray" CornerRadius="10">
+                <VerticalStackLayout Spacing="12">
+                    <Label Text="Nuværende studerende" FontSize="Caption" TextColor="Gray"/>
+                    <Label Text="{Binding ActiveStudentName}" FontSize="Title" FontAttributes="Bold"/>
+                    <Label Text="{Binding ActiveStudentNumber, StringFormat='Studienr: {0}'}" FontSize="Body"/>
+
+                    <Label Text="{Binding CountdownText}"
+                        FontSize="Header"
+                        FontAttributes="Bold"
+                        TextColor="Red"
+                        HorizontalOptions="Center"
+                        Margin="0,10"
+                        IsVisible="{Binding IsTimerVisible}"/>
+
+                    <BoxView HeightRequest="1" Color="LightGray" Margin="0,10"/>
+
+                    <Button Text="Klargør til eksamen" 
+                            Command="{Binding PrepareExamCommand}" 
+                            IsVisible="{Binding CanPrepareExam}"
+                            BackgroundColor="DodgerBlue" TextColor="White"/>
+
+                    <Label Text="{Binding UiStartTime, StringFormat='Starttid: {0:HH:mm:ss}'}" IsVisible="{Binding CanDrawNumber}"/>
+
+                    <Button Text="Træk et nummer"
+                            Command="{Binding DrawNumberCommand}"
+                            IsVisible="{Binding CanDrawNumber}"
+                            BackgroundColor="Orange" TextColor="White"/>
+
+                    <Label IsVisible="{Binding CanEndExam}">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Trukket spørgsmål: "/>
+                                <Span Text="{Binding UiSelectedQuestionNumber}" FontAttributes="Bold"/>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    
+                    <VerticalStackLayout IsVisible="{Binding CanEndExam}" Spacing="10" Margin="0,20,0,0">
+                        <Label Text="Bedømmelse" FontAttributes="Bold"/>
+                        <Picker Title="Vælg karakter" 
+                                ItemsSource="{Binding AllGrades}"
+                                SelectedItem="{Binding UiSelectedGrade}"/>
+                        
+                        <Label Text="Noter" FontAttributes="Bold"/>
+                        <Editor Placeholder="Tilføj noter her..." 
+                                Text="{Binding UiNotes}"
+                                HeightRequest="100"
+                                AutoSize="Disabled"/>
+                        
+                        <Button Text="Afslut eksamen" 
+                                Command="{Binding EndExamCommand}"
+                                BackgroundColor="Green" TextColor="White"/>
+                    </VerticalStackLayout>
+                </VerticalStackLayout>
+            </Frame>
+
+            <VerticalStackLayout Margin="0,20,0,0">
+                <Label Text="Kø" FontSize="Title" FontAttributes="Bold"/>
+                <CollectionView ItemsSource="{Binding UpcomingStudents}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="models:StudentExam">
+                            <Label Text="{Binding Student.Name}" Padding="5"/>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+            
+            <Label Text="Alle studerende er blevet eksamineret." 
+                   IsVisible="{Binding IsExamCompleted}" 
+                   FontSize="Large" HorizontalOptions="Center" TextColor="Green" FontAttributes="Bold" Margin="0,50,0,0"/>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

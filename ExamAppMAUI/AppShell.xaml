@@ -3,7 +3,9 @@
        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
        xmlns:local="clr-namespace:ExamAppMAUI.Views"
        x:Class="ExamAppMAUI.AppShell"
-       Shell.FlyoutBehavior="Disabled"> <Shell.Resources>
+       Shell.FlyoutBehavior="Disabled">
+       
+    <Shell.Resources>
         <ResourceDictionary>
             <Style TargetType="ShellContent" ApplyToDerivedTypes="True">
                 <Setter Property="Shell.NavBarIsVisible" Value="False" />
@@ -18,16 +20,10 @@
                 Route="CreateExamPage" />
         </Tab>
 
-        <Tab Title="Tilføj Studerende"
+        <Tab Title="Eksamener"
              Icon="tab_students.png"> <ShellContent
-                ContentTemplate="{DataTemplate local:AddStudentsPage}"
+                ContentTemplate="{DataTemplate local:ExamsPage}"
                 Route="AddStudentsPage" />
-        </Tab>
-
-        <Tab Title="Start Eksamen"
-             Icon="tab_start.png"> <ShellContent
-                ContentTemplate="{DataTemplate local:StartExamPage}"
-                Route="StartExamPage" />
         </Tab>
 
         <Tab Title="Historik"
@@ -37,5 +33,11 @@
         </Tab>
 
     </TabBar>
+
+    <ShellContent Route="AddStudentsToExamPage"
+                  ContentTemplate="{DataTemplate local:AddStudentsToExamPage}" />
+    
+    <ShellContent Route="ProcessExamPage"
+                  ContentTemplate="{DataTemplate local:ProcessExamPage}" />
 
 </Shell>

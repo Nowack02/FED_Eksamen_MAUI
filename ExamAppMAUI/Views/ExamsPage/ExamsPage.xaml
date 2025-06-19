@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:ExamAppMAUI.Models"
+             xmlns:viewmodels="clr-namespace:ExamAppMAUI.ViewModels"
+             x:Class="ExamAppMAUI.Views.ExamsPage"
+             x:DataType="viewmodels:ExamsViewModel"
+             Title="Eksamener">
+
+    <CollectionView ItemsSource="{Binding Exams}">
+        <CollectionView.ItemTemplate>
+            <DataTemplate x:DataType="models:Exam">
+                <Frame Padding="15" Margin="20,10" CornerRadius="10" BorderColor="LightGray">
+                    <Grid RowDefinitions="Auto, Auto" RowSpacing="15">
+                        
+                        <VerticalStackLayout Grid.Row="0">
+                            <Label Text="{Binding Course}" FontSize="Large" FontAttributes="Bold"/>
+                            <Label Text="{Binding Date, StringFormat='{0:d. MMMM yyyy}'}" FontSize="Small" />
+                        </VerticalStackLayout>
+
+                        <HorizontalStackLayout Grid.Row="1" Spacing="10" HorizontalOptions="End">
+                            <Button Text="Tilføj studerende"
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:ExamsViewModel}}, Path=GoToAddStudentsToExamCommand}"
+                                    CommandParameter="{Binding .}"/>
+
+                            <Button Text="Start eksamen"
+                                    BackgroundColor="Green"
+                                    TextColor="White"
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:ExamsViewModel}}, Path=GoToProcessExamCommand}"
+                                    CommandParameter="{Binding .}"/>
+                        </HorizontalStackLayout>
+                        
+                    </Grid>
+                </Frame>
+            </DataTemplate>
+        </CollectionView.ItemTemplate>
+    </CollectionView>
+    
+</ContentPage>

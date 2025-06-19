@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:ExamAppMAUI.Models"
+             xmlns:viewmodels="clr-namespace:ExamAppMAUI.ViewModels"
+             x:Class="ExamAppMAUI.Views.AddStudentsToExamPage"
+             x:DataType="viewmodels:AddStudentsToExamViewModel"
+             Shell.NavBarIsVisible="False">
+
+    <Grid RowDefinitions="Auto, Auto, Auto, *" RowSpacing="15" Padding="20">
+
+        <Grid Grid.Row="0" ColumnDefinitions="Auto, *">
+            <Button Grid.Column="0" Text="&lt; Tilbage" Command="{Binding GoBackCommand}" HorizontalOptions="Start"/>
+            <Label Grid.Column="1" Text="Tilmeld Studerende" FontSize="Title" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Center"/>
+        </Grid>
+
+        <VerticalStackLayout Grid.Row="1" Spacing="10">
+            <Entry Placeholder="Indtast den studerendes navn" Text="{Binding NewStudentName}" />
+            <Entry Placeholder="Indtast studienummer" Text="{Binding NewStudentNumber}" Keyboard="Numeric" />
+            <Button Text="Tilføj studerende til eksamen" Command="{Binding AddStudentCommand}" />
+        </VerticalStackLayout>
+        
+        <Label Grid.Row="2" Text="Allerede tilmeldte studerende" FontSize="Medium" FontAttributes="Bold" />
+
+        <CollectionView Grid.Row="3" ItemsSource="{Binding AssignedStudents}" EmptyView="Ingen studerende er tilmeldt endnu.">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:Student">
+                    <Frame Padding="10" Margin="0,5" CornerRadius="8">
+                        <Grid ColumnDefinitions="*, Auto">
+                            <VerticalStackLayout Grid.Column="0" VerticalOptions="Center">
+                                <Label Text="{Binding Name}" FontAttributes="Bold" />
+                                <Label Text="{Binding Email}" FontSize="Small" /> </VerticalStackLayout>
+                            <Button Grid.Column="1" Text="Slet" BackgroundColor="Red" TextColor="White"
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:AddStudentsToExamViewModel}}, Path=RemoveStudentCommand}"
+                                    CommandParameter="{Binding .}"/>
+                        </Grid>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+    </Grid>
+</ContentPage>
