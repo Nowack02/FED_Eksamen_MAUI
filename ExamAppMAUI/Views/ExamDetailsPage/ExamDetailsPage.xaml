@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:ExamAppMAUI.Models"
+             xmlns:viewmodels="clr-namespace:ExamAppMAUI.ViewModels"
+             x:Class="ExamAppMAUI.Views.ExamDetailsPage"
+             x:DataType="viewmodels:ExamDetailsViewModel"
+             Shell.NavBarIsVisible="False">
+
+    <Grid RowDefinitions="Auto, *" Padding="15" RowSpacing="15">
+
+        <Grid Grid.Row="0" ColumnDefinitions="Auto, *">
+            <Button Grid.Column="0" Text="&lt; Tilbage" Command="{Binding GoBackCommand}" HorizontalOptions="Start"/>
+            <Label Grid.Column="1" Text="{Binding ExamCourseTitle, StringFormat='Detaljer for {0}'}" FontSize="Title" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Center"/>
+        </Grid>
+        
+        <CollectionView Grid.Row="1" ItemsSource="{Binding ExamResults}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:StudentExam">
+                    <Frame Padding="15" Margin="5" CornerRadius="10" BorderColor="LightGray">
+                        <VerticalStackLayout Spacing="8">
+                            <Label Text="{Binding Student.Name}" FontSize="Medium" FontAttributes="Bold"/>
+                            <Label Text="{Binding Student.Email, StringFormat='Studienr: {0}'}" FontSize="Small" TextColor="Gray"/>
+                            <BoxView HeightRequest="1" Color="LightGray" Margin="0,5"/>
+                            
+                            <Grid ColumnDefinitions="Auto, *" RowDefinitions="Auto, Auto, Auto, Auto" RowSpacing="5" ColumnSpacing="10">
+                                <Label Grid.Row="0" Grid.Column="0" Text="Trukket spg.:" FontAttributes="Bold"/>
+                                <Label Grid.Row="0" Grid.Column="1" Text="{Binding SelectedQuestionNumber}"/>
+
+                                <Label Grid.Row="1" Grid.Column="0" Text="Karakter:" FontAttributes="Bold"/>
+                                <Label Grid.Row="1" Grid.Column="1" Text="{Binding Grade}"/>
+
+                                <Label Grid.Row="2" Grid.Column="0" Text="Tid:" FontAttributes="Bold"/>
+                                <Label Grid.Row="2" Grid.Column="1" Text="{Binding ActualExaminationDuration, StringFormat='{0:mm\\:ss}'}"/>
+
+                                <Label Grid.Row="3" Grid.Column="0" Text="Noter:" FontAttributes="Bold"/>
+                                <Label Grid.Row="3" Grid.Column="1" Text="{Binding Notes}" LineBreakMode="WordWrap"/>
+                            </Grid>
+                        </VerticalStackLayout>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+</ContentPage>

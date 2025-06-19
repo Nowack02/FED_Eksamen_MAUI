@@ -14,53 +14,41 @@
                     <Label Text="Nuværende studerende" FontSize="Caption" TextColor="Gray"/>
                     <Label Text="{Binding ActiveStudentName}" FontSize="Title" FontAttributes="Bold"/>
                     <Label Text="{Binding ActiveStudentNumber, StringFormat='Studienr: {0}'}" FontSize="Body"/>
-
-                    <Label Text="{Binding CountdownText}"
-                        FontSize="Header"
-                        FontAttributes="Bold"
-                        TextColor="Red"
-                        HorizontalOptions="Center"
-                        Margin="0,10"
-                        IsVisible="{Binding IsTimerVisible}"/>
+                    
+                    <Label Text="{Binding CountdownText}" FontSize="Header" FontAttributes="Bold" TextColor="Red"
+                        HorizontalOptions="Center" Margin="0,10" IsVisible="{Binding IsTimerVisible}"/>
 
                     <BoxView HeightRequest="1" Color="LightGray" Margin="0,10"/>
 
-                    <Button Text="Klargør til eksamen" 
-                            Command="{Binding PrepareExamCommand}" 
-                            IsVisible="{Binding CanPrepareExam}"
-                            BackgroundColor="DodgerBlue" TextColor="White"/>
-
-                    <Label Text="{Binding UiStartTime, StringFormat='Starttid: {0:HH:mm:ss}'}" IsVisible="{Binding CanDrawNumber}"/>
-
-                    <Button Text="Træk et nummer"
-                            Command="{Binding DrawNumberCommand}"
-                            IsVisible="{Binding CanDrawNumber}"
+                    <Button Text="Træk et nummer" Command="{Binding DrawNumberCommand}" IsVisible="{Binding CanDrawNumber}"
                             BackgroundColor="Orange" TextColor="White"/>
+                    <Button Text="Stop Tid" Command="{Binding StopTimeCommand}" IsVisible="{Binding IsTimerRunning}"
+                            BackgroundColor="SlateGray" TextColor="White"/>
 
-                    <Label IsVisible="{Binding CanEndExam}">
-                        <Label.FormattedText>
-                            <FormattedString>
-                                <Span Text="Trukket spørgsmål: "/>
-                                <Span Text="{Binding UiSelectedQuestionNumber}" FontAttributes="Bold"/>
-                            </FormattedString>
-                        </Label.FormattedText>
-                    </Label>
+                    <VerticalStackLayout IsVisible="{Binding IsTimerVisible}">
+                        <Label Text="{Binding UiStartTime, StringFormat='Starttid: {0:HH:mm:ss}'}"/>
+                        <Label>
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="Trukket spørgsmål: "/>
+                                    <Span Text="{Binding UiSelectedQuestionNumber}" FontAttributes="Bold"/>
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                    </VerticalStackLayout>
                     
-                    <VerticalStackLayout IsVisible="{Binding CanEndExam}" Spacing="10" Margin="0,20,0,0">
-                        <Label Text="Bedømmelse" FontAttributes="Bold"/>
-                        <Picker Title="Vælg karakter" 
-                                ItemsSource="{Binding AllGrades}"
-                                SelectedItem="{Binding UiSelectedGrade}"/>
-                        
+                    <VerticalStackLayout IsVisible="{Binding IsTimerVisible}" Spacing="5">
                         <Label Text="Noter" FontAttributes="Bold"/>
                         <Editor Placeholder="Tilføj noter her..." 
                                 Text="{Binding UiNotes}"
                                 HeightRequest="100"
                                 AutoSize="Disabled"/>
-                        
-                        <Button Text="Afslut eksamen" 
-                                Command="{Binding EndExamCommand}"
-                                BackgroundColor="Green" TextColor="White"/>
+                    </VerticalStackLayout>
+                    
+                    <VerticalStackLayout IsVisible="{Binding CanGradeStudent}" Spacing="10" Margin="0,10,0,0">
+                        <Label Text="Bedømmelse" FontAttributes="Bold"/>
+                        <Picker Title="Vælg karakter" ItemsSource="{Binding AllGrades}" SelectedItem="{Binding UiSelectedGrade}"/>
+                        <Button Text="Afslut eksamen" Command="{Binding EndExamCommand}" BackgroundColor="Green" TextColor="White"/>
                     </VerticalStackLayout>
                 </VerticalStackLayout>
             </Frame>

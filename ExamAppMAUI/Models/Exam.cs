@@ -14,5 +14,26 @@ namespace ExamAppMAUI.Models
         public DateTime StartTime { get; set; }
 
         public ICollection<StudentExam> StudentExams { get; set; } = new List<StudentExam>();
+
+        public double AverageGrade
+        {
+            get
+            {
+                // Find alle de studerendes eksamener, hvor der er givet en karakter
+                var gradedExams = StudentExams?
+                    .Where(se => se.Grade.HasValue)
+                    .Select(se => se.Grade.Value)
+                    .ToList();
+
+                // Hvis der ikke er nogen karakterer, returner 0 (eller en anden standardværdi)
+                if (gradedExams == null || !gradedExams.Any())
+                {
+                    return 0;
+                }
+
+                // Beregn og returner gennemsnittet
+                return gradedExams.Average();
+            }
+        }
     }
 }

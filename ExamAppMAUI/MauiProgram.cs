@@ -39,6 +39,8 @@ public static class MauiProgram
 		builder.Services.AddTransient<ExamsViewModel>();
 		builder.Services.AddTransient<AddStudentsToExamViewModel>();
 		builder.Services.AddTransient<ProcessExamViewModel>();
+		builder.Services.AddTransient<HistoryViewModel>();
+		builder.Services.AddTransient<ExamDetailsViewModel>();
 		
 
 		builder.Services.AddTransient<CreateExamPage>();
@@ -46,6 +48,7 @@ public static class MauiProgram
 		builder.Services.AddTransient<AddStudentsToExamPage>();
 		builder.Services.AddTransient<ProcessExamPage>();
 		builder.Services.AddTransient<HistoryPage>();
+		builder.Services.AddTransient<ExamDetailsPage>();
 
 		Services = builder.Services.BuildServiceProvider();
 

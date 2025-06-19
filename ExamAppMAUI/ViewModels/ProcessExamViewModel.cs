@@ -54,20 +54,20 @@ namespace ExamAppMAUI.ViewModels
         private bool _isStudentActive;
 
         [ObservableProperty]
-        private bool _canPrepareExam;
-
-        [ObservableProperty]
-        [NotifyPropertyChangedFor(nameof(IsTimerVivible))]
         private bool _canDrawNumber;
 
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(IsTimerVivible))]
-        private bool _canEndExam;
+        private bool _isTimerRunning;
+
+        [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(IsTimerVivible))]
+        private bool _canGradeStudent;
 
         [ObservableProperty]
         private bool _isExamCompleted;
 
-        public bool IsTimerVivible => CanDrawNumber || CanEndExam;
+        public bool IsTimerVivible => CanDrawNumber || CanGradeStudent;
 
         public List<int> AllGrades => new List<int> { -3, 00, 02, 4, 7, 10, 12 };
 
@@ -97,28 +97,12 @@ namespace ExamAppMAUI.ViewModels
         }
 
         [RelayCommand]
-        private async Task PrepareExamAsync()
-        {
-            if (_activeStudentExamModel == null || _activeStudentExamModel.StartTime.HasValue) return;
-
-            // Sæt starttid
-            UiStartTime = DateTime.Now;
-            _activeStudentExamModel.StartTime = UiStartTime;
-
-            // Gem kun starttiden
-            _context.Update(_activeStudentExamModel);
-            await _context.SaveChangesAsync();
-
-            // Opdater UI-tilstand: skjul "Klargør", vis "Træk nummer"
-            CanPrepareExam = false;
-            CanDrawNumber = true;
-            CanEndExam = false; // "Afslut" skal først vises efter nummer er trukket
-        }
-
-        [RelayCommand]
         private async Task DrawNumberAsync()
         {
             if (_activeStudentExamModel == null) return;
+
+            UiStartTime = DateTime.Now;
+            _activeStudentExamModel.StartTime = UiStartTime;
 
             var exam = await _context.Exams.FindAsync(ExamId);
             int numberOfQuestions = exam?.NumberOfQuestions ?? 1;
@@ -131,21 +115,26 @@ namespace ExamAppMAUI.ViewModels
             _context.Update(_activeStudentExamModel);
             await _context.SaveChangesAsync();
 
-            // Opdater UI-tilstand: skjul "Træk nummer", vis "Afslut" sektionen
-            CanDrawNumber = false;
-            CanEndExam = true;
-
             // Start nedtællingstimeren
             StartCountdown();
+
+            // Opdater UI-tilstand: skjul "Træk nummer", vis "Afslut" sektionen
+            CanDrawNumber = false;
+            IsTimerRunning = true;
+        }
+
+        [RelayCommand]
+        private void StopTime()
+        {
+            _countdownTimer?.Stop();
+            EnterGradingState();
         }
 
         [RelayCommand]
         private async Task EndExamAsync()
         {
-            // ... (Denne kommando er uændret)
             if (_activeStudentExamModel == null) return;
 
-            _countdownTimer?.Stop(); // Stop nedtællingstimeren, hvis den kører
             UiEndTime = DateTime.Now;
             if (UiStartTime.HasValue) { UiActualExaminationDuration = UiEndTime - UiStartTime; }
             _activeStudentExamModel.EndTime = UiEndTime;
@@ -154,21 +143,22 @@ namespace ExamAppMAUI.ViewModels
             _activeStudentExamModel.Notes = UiNotes;
             _context.Update(_activeStudentExamModel);
             await _context.SaveChangesAsync();
-            CanEndExam = false;
+
+            CanGradeStudent = false; // Skjul bedømmelses-sektionen igen
             LoadNextStudent();
         }
 
         private void LoadNextStudent()
         {
             _countdownTimer?.Stop();
-            CountdownText = string.Empty;
+            CountdownText = "";
 
             var nextStudent = _studentQueue.FirstOrDefault(s => s.EndTime == null);
 
             if (nextStudent != null)
             {
                 _activeStudentExamModel = nextStudent;
-                // ... (data kopieres som før)
+                // ... data kopieres som før ...
                 ActiveStudentName = _activeStudentExamModel.Student.Name;
                 ActiveStudentNumber = _activeStudentExamModel.Student.StudentNumber;
                 UiStartTime = _activeStudentExamModel.StartTime;
@@ -180,10 +170,16 @@ namespace ExamAppMAUI.ViewModels
 
                 // Nulstil UI-tilstand for den nye studerende
                 IsStudentActive = true;
-                CanPrepareExam = !_activeStudentExamModel.StartTime.HasValue;
-                CanDrawNumber = _activeStudentExamModel.StartTime.HasValue && !_activeStudentExamModel.SelectedQuestionNumber.HasValue;
-                CanEndExam = _activeStudentExamModel.SelectedQuestionNumber.HasValue;
+                bool isStarted = _activeStudentExamModel.StartTime.HasValue;
 
+                CanDrawNumber = !isStarted;
+                IsTimerRunning = isStarted; // Hvis nummer er trukket, kører timeren
+                CanGradeStudent = false; // Bedømmelse er altid skjult i starten
+
+                if (isStarted)
+                {
+                    StartCountdown();
+                }
                 UpcomingStudents.Remove(nextStudent);
             }
             else
@@ -192,40 +188,39 @@ namespace ExamAppMAUI.ViewModels
                 IsExamCompleted = true;
             }
         }
-        
+
         private void StartCountdown()
         {
             var exam = _context.Exams.Find(ExamId);
             if (exam == null) return;
-            
-            // Beregn resterende tid, hvis vi genoptager en eksamen
+
             var elapsedTime = (UiStartTime.HasValue) ? DateTime.Now - UiStartTime.Value : TimeSpan.Zero;
             var remainingTime = exam.ExaminationDuration - elapsedTime;
 
-            // Stop en eventuel eksisterende timer
             _countdownTimer?.Stop();
-
-            // Opret en ny timer der kører på UI-tråden
             _countdownTimer = App.Current.Dispatcher.CreateTimer();
             _countdownTimer.Interval = TimeSpan.FromSeconds(1);
-            _countdownTimer.Tick += (s, e) => 
+            _countdownTimer.Tick += (s, e) =>
             {
                 remainingTime = remainingTime.Subtract(TimeSpan.FromSeconds(1));
                 if (remainingTime.TotalSeconds > 0)
                 {
-                    // Opdater teksten i UI
                     CountdownText = remainingTime.ToString(@"mm\:ss");
                 }
                 else
                 {
-                    // Tiden er udløbet
                     CountdownText = "TIDEN ER UDLØBET";
                     _countdownTimer.Stop();
+                    EnterGradingState(); // Gå til bedømmelses-tilstand når tiden udløber
                 }
             };
-            
-            // Start uret
             _countdownTimer.Start();
+        }
+        
+        private void EnterGradingState()
+        {
+            IsTimerRunning = false;
+            CanGradeStudent = true;
         }
     }
 }
