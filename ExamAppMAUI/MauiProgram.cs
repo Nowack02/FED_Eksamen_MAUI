@@ -1,6 +1,10 @@
 ﻿using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore;
+using ExamAppMAUI.Data;
+using System.IO;
+using Microsoft.Maui.Storage;
 
-namespace EksaminationAppMAUI;
+namespace ExamAppMAUI;
 
 public static class MauiProgram
 {
@@ -18,6 +22,11 @@ public static class MauiProgram
 #if DEBUG
 		builder.Logging.AddDebug();
 #endif
+
+        var dbPath = Path.Combine(FileSystem.AppDataDirectory, "ExamApp.db");
+
+        builder.Services.AddDbContext<ApplicationDbContext>(options =>
+            options.UseSqlite($"Filename={dbPath}"));
 
 		return builder.Build();
 	}

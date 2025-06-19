@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EksaminationAppMAUI", "EksaminationAppMAUI\EksaminationAppMAUI.csproj", "{A016AE1E-039C-4C7B-9FC6-4A1D826FDE80}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExamAppMAUI", "ExamAppMAUI\ExamAppMAUI.csproj", "{C8284992-8EC7-41EE-B4BA-DF46D5B382DA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -14,9 +14,9 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{A016AE1E-039C-4C7B-9FC6-4A1D826FDE80}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A016AE1E-039C-4C7B-9FC6-4A1D826FDE80}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A016AE1E-039C-4C7B-9FC6-4A1D826FDE80}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A016AE1E-039C-4C7B-9FC6-4A1D826FDE80}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C8284992-8EC7-41EE-B4BA-DF46D5B382DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8284992-8EC7-41EE-B4BA-DF46D5B382DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C8284992-8EC7-41EE-B4BA-DF46D5B382DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C8284992-8EC7-41EE-B4BA-DF46D5B382DA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

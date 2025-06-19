@@ -1,4 +1,4 @@
-﻿namespace EksaminationAppMAUI;
+﻿namespace ExamAppMAUI;
 
 public partial class MainPage : ContentPage
 {
