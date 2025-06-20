@@ -20,7 +20,7 @@
                     <Frame Padding="15" Margin="5" CornerRadius="10" BorderColor="LightGray">
                         <VerticalStackLayout Spacing="8">
                             <Label Text="{Binding Student.Name}" FontSize="Medium" FontAttributes="Bold"/>
-                            <Label Text="{Binding Student.Email, StringFormat='Studienr: {0}'}" FontSize="Small" TextColor="Gray"/>
+                            <Label Text="{Binding Student.StudentNumber, StringFormat='Studienr: {0}'}" FontSize="Small" TextColor="Gray"/>
                             <BoxView HeightRequest="1" Color="LightGray" Margin="0,5"/>
                             
                             <Grid ColumnDefinitions="Auto, *" RowDefinitions="Auto, Auto, Auto, Auto" RowSpacing="5" ColumnSpacing="10">

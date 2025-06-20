@@ -11,7 +11,6 @@ public partial class ExamDetailsPage : ContentPage
         BindingContext = viewModel;
     }
 
-    // Sørger for at indlæse data, når siden vises
     protected override async void OnAppearing()
     {
         base.OnAppearing();

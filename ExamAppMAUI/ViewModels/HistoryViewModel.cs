@@ -15,7 +15,6 @@ namespace ExamAppMAUI.ViewModels
     {
         private readonly ApplicationDbContext _context;
 
-        // Listen, der vises i brugergrænsefladen
         [ObservableProperty]
         private ObservableCollection<Exam> _completedExams;
 
@@ -31,24 +30,23 @@ namespace ExamAppMAUI.ViewModels
         {
             CompletedExams.Clear();
 
-            // Henter kun eksamener, hvor ALLE studerende har en EndTime
             var finishedExams = await _context.Exams
+                .Include(e => e.StudentExams)
                 .Where(e => e.StudentExams.Any() && e.StudentExams.All(se => se.EndTime != null))
                 .ToListAsync();
 
             foreach (var exam in finishedExams)
             {
+
                 CompletedExams.Add(exam);
             }
         }
 
-        // NY KOMMANDO: Navigerer til detaljesiden med den valgte eksamens ID
         [RelayCommand]
         private async Task GoToDetailsAsync(Exam exam)
         {
             if (exam == null) return;
 
-            // Vi navigerer til en 'ExamDetailsPage', som vi bygger i næste del
             await Shell.Current.GoToAsync($"{nameof(ExamDetailsPage)}?ExamId={exam.Id}");
         }
         
@@ -57,17 +55,15 @@ namespace ExamAppMAUI.ViewModels
         {
             if (examToDelete == null) return;
 
-            // Vis bekræftelsesdialog
             bool userConfirmed = await App.Current.MainPage.DisplayAlert(
                 "Slet Eksamen", 
                 $"Er du sikker på, du vil slette eksamenen '{examToDelete.Course}'? Handlingen kan ikke fortrydes.", 
                 "Ja, slet", 
                 "Nej");
 
-            if (!userConfirmed) return; // Brugeren fortrød
+            if (!userConfirmed) return;
 
-            // Slet eksamenen fra databasen
-            // EF Core vil automatisk slette de tilhørende StudentExam-rækker (cascade delete)
+
             _context.Exams.Remove(examToDelete);
             await _context.SaveChangesAsync();
 

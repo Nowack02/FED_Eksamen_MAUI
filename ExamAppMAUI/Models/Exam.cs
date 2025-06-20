@@ -25,7 +25,6 @@ namespace ExamAppMAUI.Models
                     .Select(se => se.Grade.Value)
                     .ToList();
 
-                // Hvis der ikke er nogen karakterer, returner 0 (eller en anden standardværdi)
                 if (gradedExams == null || !gradedExams.Any())
                 {
                     return 0;

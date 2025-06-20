@@ -93,7 +93,7 @@ namespace ExamAppMAUI.ViewModels
             UpcomingStudents = new ObservableCollection<StudentExam>(_studentQueue);
 
             IsExamCompleted = false;
-            LoadNextStudent(); // Indlæs den første studerende i køen
+            LoadNextStudent();
         }
 
         [RelayCommand]
@@ -111,14 +111,11 @@ namespace ExamAppMAUI.ViewModels
             UiSelectedQuestionNumber = new Random().Next(1, numberOfQuestions + 1);
             _activeStudentExamModel.SelectedQuestionNumber = UiSelectedQuestionNumber;
 
-            // Gem det trukne nummer
             _context.Update(_activeStudentExamModel);
             await _context.SaveChangesAsync();
 
-            // Start nedtællingstimeren
             StartCountdown();
 
-            // Opdater UI-tilstand: skjul "Træk nummer", vis "Afslut" sektionen
             CanDrawNumber = false;
             IsTimerRunning = true;
         }
@@ -144,7 +141,7 @@ namespace ExamAppMAUI.ViewModels
             _context.Update(_activeStudentExamModel);
             await _context.SaveChangesAsync();
 
-            CanGradeStudent = false; // Skjul bedømmelses-sektionen igen
+            CanGradeStudent = false;
             LoadNextStudent();
         }
 
@@ -168,7 +165,6 @@ namespace ExamAppMAUI.ViewModels
                 UiNotes = _activeStudentExamModel.Notes;
                 UiSelectedGrade = _activeStudentExamModel.Grade;
 
-                // Nulstil UI-tilstand for den nye studerende
                 IsStudentActive = true;
                 bool isStarted = _activeStudentExamModel.StartTime.HasValue;
 

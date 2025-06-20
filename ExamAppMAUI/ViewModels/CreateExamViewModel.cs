@@ -18,16 +18,16 @@ namespace ExamAppMAUI.ViewModels
         private string _course;
 
         [ObservableProperty]
-        private DateTime _date = DateTime.Today; // Standardværdi til i dag
+        private DateTime _date = DateTime.Today;
 
         [ObservableProperty]
         private int _numberOfQuestions;
 
         [ObservableProperty]
-        private string _examinationDuration = "20"; // Standardværdi i minutter
+        private string _examinationDuration = "20";
         [ObservableProperty]
 
-        private TimeSpan _startTime = TimeSpan.FromHours(9); // Standardværdi for starttidspunkt
+        private TimeSpan _startTime = TimeSpan.FromHours(9);
 
         [ObservableProperty]
         private string _errorMessage;
