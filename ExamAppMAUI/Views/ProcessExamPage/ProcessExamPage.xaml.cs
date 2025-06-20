@@ -10,7 +10,6 @@ public partial class ProcessExamPage : ContentPage
         BindingContext = viewModel;
     }
 
-    // Sørg for at denne metode kalder den korrekte kommando
     protected override async void OnAppearing()
     {
         base.OnAppearing();

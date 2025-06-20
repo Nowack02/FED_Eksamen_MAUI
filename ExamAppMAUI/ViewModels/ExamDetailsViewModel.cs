@@ -16,11 +16,9 @@ public partial class ExamDetailsViewModel : ObservableObject
     [ObservableProperty]
     private int _examId;
 
-    // Egenskab til at vise eksamenens navn i sidens titel
     [ObservableProperty]
     private string _examCourseTitle;
 
-    // Liste over alle de studerendes resultater for denne eksamen
     [ObservableProperty]
     private ObservableCollection<StudentExam> _examResults;
 
@@ -41,7 +39,7 @@ public partial class ExamDetailsViewModel : ObservableObject
 
         if (exam == null) return;
 
-        ExamCourseTitle = exam.Course; // Sæt titlen
+        ExamCourseTitle = exam.Course;
 
         // Fyld listen med resultater
         ExamResults.Clear();

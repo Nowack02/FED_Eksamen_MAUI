@@ -21,7 +21,7 @@
                     <BoxView HeightRequest="1" Color="LightGray" Margin="0,10"/>
 
                     <Button Text="Træk et nummer" Command="{Binding DrawNumberCommand}" IsVisible="{Binding CanDrawNumber}"
-                            BackgroundColor="Orange" TextColor="White"/>
+                            BackgroundColor="green" TextColor="White"/>
                     <Button Text="Stop Tid" Command="{Binding StopTimeCommand}" IsVisible="{Binding IsTimerRunning}"
                             BackgroundColor="SlateGray" TextColor="White"/>
 

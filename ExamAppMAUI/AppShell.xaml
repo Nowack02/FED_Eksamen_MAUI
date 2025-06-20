@@ -14,20 +14,17 @@
     </Shell.Resources>
 
     <TabBar>
-        <Tab Title="Opret Eksamen"
-             Icon="tab_exam.png"> <ShellContent
+        <Tab Title="Opret Eksamen"> <ShellContent
                 ContentTemplate="{DataTemplate local:CreateExamPage}"
                 Route="CreateExamPage" />
         </Tab>
 
-        <Tab Title="Eksamener"
-             Icon="tab_students.png"> <ShellContent
+        <Tab Title="Eksamener"> <ShellContent
                 ContentTemplate="{DataTemplate local:ExamsPage}"
                 Route="AddStudentsPage" />
         </Tab>
 
-        <Tab Title="Historik"
-             Icon="tab_history.png"> <ShellContent
+        <Tab Title="Historik"> <ShellContent
                 ContentTemplate="{DataTemplate local:HistoryPage}"
                 Route="HistoryPage" />
         </Tab>
