@@ -21,7 +21,7 @@
 
         <Tab Title="Eksamener"> <ShellContent
                 ContentTemplate="{DataTemplate local:ExamsPage}"
-                Route="AddStudentsPage" />
+                Route="ExamsPage" />
         </Tab>
 
         <Tab Title="Historik"> <ShellContent

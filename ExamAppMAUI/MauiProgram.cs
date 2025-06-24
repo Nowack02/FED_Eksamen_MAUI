@@ -37,7 +37,7 @@ public static class MauiProgram
 
 		// ViewModels
 		builder.Services.AddTransient<CreateExamViewModel>();
-		builder.Services.AddSingleton<ExamsViewModel>();
+		builder.Services.AddTransient<ExamsViewModel>();
 		builder.Services.AddTransient<AddStudentsToExamViewModel>();
 		builder.Services.AddTransient<ProcessExamViewModel>();
 		builder.Services.AddTransient<HistoryViewModel>();
@@ -45,7 +45,7 @@ public static class MauiProgram
 		
 		// Views
 		builder.Services.AddTransient<CreateExamPage>();
-		builder.Services.AddSingleton<ExamsPage>();
+		builder.Services.AddTransient<ExamsPage>();
 		builder.Services.AddTransient<AddStudentsToExamPage>();
 		builder.Services.AddTransient<ProcessExamPage>();
 		builder.Services.AddTransient<HistoryPage>();

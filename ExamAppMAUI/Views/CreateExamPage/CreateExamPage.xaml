@@ -13,43 +13,56 @@
               <Label Text="Termin:"
                      FontSize="Medium"
                      FontAttributes="Bold" />
-              <Entry Text="{Binding Term}"
-                     Placeholder="F.eks. Forår 2025"
-                     ClearButtonVisibility="WhileEditing" />
-
+              <Border Style="{StaticResource InputBorderStyle}">
+                     <Entry Text="{Binding Term}"
+                            Placeholder="F.eks. Forår 2025"
+                            ClearButtonVisibility="WhileEditing" />
+              </Border>
               <Label Text="Kursus:"
                      FontSize="Medium"
                      FontAttributes="Bold" />
-              <Entry Text="{Binding Course}"
-                     Placeholder="F.eks. Front-end udvikling"
-                     ClearButtonVisibility="WhileEditing" />
-
+              <Border Style="{StaticResource InputBorderStyle}">
+                     <Entry Text="{Binding Course}"
+                            Placeholder="F.eks. Front-end udvikling"
+                            ClearButtonVisibility="WhileEditing" />
+              </Border>
               <Label Text="Dato:"
                      FontSize="Medium"
                      FontAttributes="Bold" />
+              <Border Style="{StaticResource InputBorderStyle}"
+                      HorizontalOptions="Start">
               <DatePicker Date="{Binding Date}"
-                            Format="dd-MM-yyyy" />
-              
+                            Format="dd-MM-yyyy"
+                            BackgroundColor="White"
+                            TextColor="Black"/>
+              </Border>
               <Label Text="Antal Spørgsmål:"
                      FontSize="Medium"
                      FontAttributes="Bold" />
-              <Entry Text="{Binding NumberOfQuestions}"
-                     Keyboard="Numeric"
-                     Placeholder="Indtast antal spørgsmål"
-                     ClearButtonVisibility="WhileEditing" />
-
+              <Border Style="{StaticResource InputBorderStyle}"
+                      HorizontalOptions="Start">
+                     <Entry Text="{Binding NumberOfQuestions}"
+                            Keyboard="Numeric"
+                            Placeholder="Indtast antal spørgsmål"
+                            ClearButtonVisibility="WhileEditing" />
+              </Border>
               <Label Text="Eksaminationstid pr. Studerende:"
                      FontSize="Medium"
                      FontAttributes="Bold" />
+              <Border Style="{StaticResource InputBorderStyle}"
+                      HorizontalOptions="Start">
               <Entry Text="{Binding ExaminationDuration}"
                      Placeholder="Hele minutter"
                      Keyboard="Numeric" />
-
+              </Border>
               <Label Text="Starttidspunkt for eksamen:"
                      FontSize="Medium"
                      FontAttributes="Bold" />
+              <Border Style="{StaticResource InputBorderStyle}"
+                      HorizontalOptions="Start">
               <TimePicker Time="{Binding StartTime}"
                      Format="HH:mm"/>
+              </Border>
 
               <Label Text="{Binding ErrorMessage}"
                      TextColor="Red"

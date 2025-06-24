@@ -5,7 +5,7 @@
              xmlns:viewmodels="clr-namespace:ExamAppMAUI.ViewModels"
              x:Class="ExamAppMAUI.Views.ProcessExamPage"
              x:DataType="viewmodels:ProcessExamViewModel"
-             Title="Eksamensafvikling">
+             >
 
     <ScrollView>
         <VerticalStackLayout Spacing="15" Padding="20">
@@ -39,15 +39,19 @@
                     
                     <VerticalStackLayout IsVisible="{Binding IsTimerVisible}" Spacing="5">
                         <Label Text="Noter" FontAttributes="Bold"/>
+                        <Border Style="{StaticResource InputBorderStyle}" Padding="5">
                         <Editor Placeholder="Tilføj noter her..." 
                                 Text="{Binding UiNotes}"
                                 HeightRequest="100"
                                 AutoSize="Disabled"/>
+                        </Border>
                     </VerticalStackLayout>
                     
                     <VerticalStackLayout IsVisible="{Binding CanGradeStudent}" Spacing="10" Margin="0,10,0,0">
                         <Label Text="Bedømmelse" FontAttributes="Bold"/>
+                        <Border Style="{StaticResource InputBorderStyle}" Padding="5">
                         <Picker Title="Vælg karakter" ItemsSource="{Binding AllGrades}" SelectedItem="{Binding UiSelectedGrade}"/>
+                        </Border>
                         <Button Text="Afslut eksamen" Command="{Binding EndExamCommand}" BackgroundColor="Green" TextColor="White"/>
                     </VerticalStackLayout>
                 </VerticalStackLayout>

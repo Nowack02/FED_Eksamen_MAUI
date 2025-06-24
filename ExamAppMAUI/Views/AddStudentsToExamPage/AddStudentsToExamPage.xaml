@@ -15,8 +15,12 @@
         </Grid>
 
         <VerticalStackLayout Grid.Row="1" Spacing="10">
+            <Border Style="{StaticResource InputBorderStyle}">
             <Entry Placeholder="Indtast den studerendes navn" Text="{Binding NewStudentName}" />
+            </Border>
+            <Border Style="{StaticResource InputBorderStyle}">
             <Entry Placeholder="Indtast studienummer" Text="{Binding NewStudentNumber}" Keyboard="Numeric" />
+            </Border>
             <Button Text="Tilføj studerende til eksamen" Command="{Binding AddStudentCommand}" />
         </VerticalStackLayout>
         

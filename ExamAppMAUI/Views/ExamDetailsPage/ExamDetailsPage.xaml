@@ -17,7 +17,7 @@
         <CollectionView Grid.Row="1" ItemsSource="{Binding ExamResults}">
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="models:StudentExam">
-                    <Frame Padding="15" Margin="5" CornerRadius="10" BorderColor="LightGray">
+                    <Frame Padding="15" Margin="20" CornerRadius="10" BorderColor="LightGray">
                         <VerticalStackLayout Spacing="8">
                             <Label Text="{Binding Student.Name}" FontSize="Medium" FontAttributes="Bold"/>
                             <Label Text="{Binding Student.StudentNumber, StringFormat='Studienr: {0}'}" FontSize="Small" TextColor="Gray"/>
